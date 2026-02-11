@@ -12,10 +12,11 @@ on:
 
 env:
   FORCE_CUDA: 1
-  MAX_JOBS: 6
+  MAX_JOBS: 8
   DISTUTILS_USE_SDK: 1 # otherwise distutils will complain on windows about multiple versions of msvc
   XFORMERS_BUILD_TYPE: "Release"
   TMPDIR: "./x"
+  XFORMERS_PT_CUTLASS_ATTN: 0
 
 jobs:
   win_build:
@@ -23,7 +24,7 @@ jobs:
       fail-fast: false
       matrix:
         arch:
-          - "8.0"
+          - "8.9"
     name: win-build-${{ matrix.arch }}
     runs-on: windows-8-core
     env:
@@ -62,7 +63,7 @@ jobs:
         with:
           toolkit_type: "cuda"
           toolkit_short_version: "130"
-          python: "3.10"
+          python: "3.13"
 
       - name: Remove internal code
         run: |
